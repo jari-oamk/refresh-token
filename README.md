@@ -1,6 +1,9 @@
 # Initial project for refresh token walkthrough
 
-This repository contains simple NodeJS/Express and React application which cam be used as basis for refreshtoken walkthrough.
+This repository contains simple NodeJS/Express and React application which can be used as basis for refreshtoken walkthrough.
+main branch: starting point for access token walkthrough
+recycleDone branch: ending point for access token walkthrough
+refreshDone: ending point for access token walkthrough
 
 ## Installation instructions
 
