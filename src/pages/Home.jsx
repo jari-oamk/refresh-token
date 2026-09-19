@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useUser } from '../context/useUser'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useGet } from '../hooks/useGet'
 
 export default function Home() {
-  const navigate = useNavigate()
-  const { user } = useUser()
-  const [message, setMessage] = useState('')
-  
+  const { data,error,loading } = useGet()
+
+
   return (
     <div>
       <h3>Secret message from server</h3>
-      <p>{message}</p>
+      {
+        loading ? (
+          <p>Loading...</p>
+        ) : (
+          error ? (
+            <p>
+              {error.response.data ? error.response.data.error : error.message}
+              <br />
+              {error.status === 401 && <Link to="/login">Login again</Link>}
+            </p>
+          ) : (
+            <p>{data ? data.message : ''}</p>
+          )
+        )
+      } 
     </div>
   )
 }
