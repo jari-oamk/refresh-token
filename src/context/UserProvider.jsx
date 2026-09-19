@@ -14,17 +14,48 @@ export default function UserProvider({children}) {
     const json = JSON.stringify(user)
     const headers = {headers: {'Content-Type':'application/json'}}
     try {
+      axios.defaults.withCredentials = true
       const response = await axios.post(base_url + '/signin',json,headers)
-      setUser(response.data)
-      sessionStorage.setItem("user",JSON.stringify(response.data))
+      saveUser(response)
     } catch(error) {
       setUser({email: '',password: ''})
       throw error
     }
   } 
 
+  const autoLogin = async () => {
+    try {
+      axios.defaults.withCredentials = true
+      const response = await axios.post(base_url + '/autologin')
+      saveUser(response)
+    } catch (error) {
+      throw error
+    }
+  }
+
+  const saveUser = (response) => {
+    const token = readAuthorizationHeader(response)
+      const user = {email: response.data.email,access_token: token}
+      setUser(user)
+      sessionStorage.setItem("user",JSON.stringify(user))
+  }
+
+  const updateToken = (response) => {
+    const token = readAuthorizationHeader(response)
+    const newUser = {...user,access_token: token}
+    setUser(newUser)
+    sessionStorage.setItem("user",JSON.stringify(newUser))
+  }
+
+    const readAuthorizationHeader = (response) => {
+    if (response.headers.get('authorization') && 
+      response.headers.get('authorization').split(' ')[0] === 'Bearer') {
+      return response.headers.get('authorization').split(' ')[1]
+    }
+  }
+
   return (
-    <UserContext.Provider value={{user, setUser,signIn}}>
+    <UserContext.Provider value={{user, setUser,signIn, updateToken, autoLogin}}>
       { children }
     </UserContext.Provider>
   )

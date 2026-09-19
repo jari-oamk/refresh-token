@@ -1,11 +1,24 @@
-import React, { useEffect } from 'react'
-import { useUser } from '../context/useUser'
+import React, { useEffect,useState } from 'react'
+import { useUser } from '../hooks/useUser'
 import './Login.css'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-  const { user, setUser, signIn } = useUser()
+  const { user, setUser, signIn,autoLogin } = useUser()
+  const [autoLogging, setAutoLogging] = useState(true)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    (async() => {
+      try {
+        await autoLogin()
+        navigate("/")
+      } catch {
+        // If there is any error change to login screen.
+        setAutoLogging(false)
+      }
+    })()
+  }, [])
 
   const login = async (e) => {
     e.preventDefault()
@@ -19,6 +32,12 @@ export default function Login() {
   }
 
   return (
+    <>
+      {
+        autoLogging ? (
+          <p>Logging in ...</p>
+        ) : (
+
     <form onSubmit={login}>
       <h3>Login</h3>
       <div>
@@ -38,6 +57,9 @@ export default function Login() {
         />
       </div>
       <button>Ok</button>
-    </form>
+          </form>
+        )
+      } 
+    </>
   )
 }

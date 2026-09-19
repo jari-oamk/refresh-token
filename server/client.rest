@@ -20,6 +20,15 @@ Content-Type: application/json
 }
 
 //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTczMjA0MzgwNSwiZXhwIjoxNzMyMDQzODY1fQ.9TLzu4u19GWWR8oxHPg5wYrejgQfQFSbxW0VM1x2u2I
-### Get secured content
+### Get secured content w access token
 GET http://localhost:3001/secured HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTc4OTQ5MDY3MH0.QmycjpphVZ7NOLAOJk_tGTXj1iI-NN7Z0PPgxlCupf0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTc4OTc1NjEwNiwiZXhwIjoxNzg5NzU2MTY2fQ.nGuitg403XaAL7uS_O-aQJxKHhMgr7ovf-OmKNgVqb8
+
+### Get secured content w cookie refresh token
+GET http://localhost:3001/secured HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTc4OTgyNjk1NSwiZXhwIjoxNzg5ODI3MDE1fQ.B1e3uxzTRHBZgru3ZlmmeLVd7kjt65c-XpqyLa5nmK4
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTc4OTgyNjk1NSwiZXhwIjoxNzg5ODI3MDc1fQ.CSgqhKHfdnp7moBWiBHBEHGnY9Fn9BUVF4L7WuPwzCM
+
+### Get secured content w cookie refresh token
+POST http://localhost:3001/autologin HTTP/1.1
+Cookie: refreshToken=eyJhbGciOiJIUz1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW5AZm9vLmNvbSIsImlhdCI6MTc4OTgyNzI2OSwiZXhwIjoxNzg5ODI3Mzg5fQ.ivuHSP_SkaQ0CMIVNk-eXXdv6ag2HUkn1-sotmBqU78
